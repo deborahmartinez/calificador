@@ -111,6 +111,20 @@ shinyUI(fluidPage(theme = shinytheme("united"),
                                                       fluidRow(
                                                         textAreaInput("mencion", label = labelMandatory("Mención"))
                                                       ),
+                                                      fluidRow(
+                                                        pickerInput("prioridades",label = "Prioridades presidenciales",
+                                                                    choices = c("","Becas", "La escuela es nuestra", "100 UBJ",
+                                                                                "Rechazo cero", "Equidad", "Planes y programas de estudio",
+                                                                                "Fuera de prioridades"),
+                                                                    options = pickerOptions(noneSelectedText = "Seleccione una opción"))
+                                                      ),
+                                                      fluidRow(
+                                                        pickerInput("origen",label = "Origen de la información",
+                                                                    choices = c("", "Boletín de prensa", "Entrevista","Declaración",
+                                                                                "Conferencia matutina", "Redes sociales",
+                                                                                "Evento público", "Otros actores"),
+                                                                    options = pickerOptions(noneSelectedText = "Seleccione una opción"))
+                                                      ),
                                                       fluidRow(column(6,
                                                                       pickerInput("subtema",label = labelMandatory("Subtema"),
                                                                                   choices = NULL, options = list(`live-search` = T,
@@ -227,6 +241,20 @@ shinyUI(fluidPage(theme = shinytheme("united"),
                                              ),
                                              fluidRow(
                                                textAreaInput("mencionEd", label = labelMandatory("Mención"))
+                                             ),
+                                             fluidRow(
+                                               pickerInput("prioridadesEd",label = "Prioridades presidenciales",
+                                                           choices = c("","Becas", "La escuela es nuestra", "100 UBJ",
+                                                                       "Rechazo cero", "Equidad", "Planes y programas de estudio",
+                                                                       "Fuera de prioridades"),
+                                                           options = pickerOptions(noneSelectedText = "Seleccione una opción"))
+                                             ),
+                                             fluidRow(
+                                               pickerInput("origenEd",label = "Origen de la información",
+                                                           choices = c("", "Boletín de prensa", "Entrevista","Declaración",
+                                                                       "Conferencia matutina", "Redes sociales",
+                                                                       "Evento público", "Otros actores"),
+                                                           options = pickerOptions(noneSelectedText = "Seleccione una opción"))
                                              ),
                                              fluidRow(column(6,
                                                              pickerInput("subtemaEd",label = labelMandatory("Subtema"),

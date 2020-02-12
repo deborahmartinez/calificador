@@ -1,5 +1,7 @@
 shinyServer(function(input, output, session) {
   
+  session$allowReconnect("force")
+  
   rv <- reactiveValues(row = 1, row2 = 1, link = NULL, link2 = NULL)
   bd <- reactiveValues(entrenamiento = NULL, prueba = NULL, 
                        preprueba = NULL, nnr = NULL, opciones = NULL,
@@ -238,7 +240,6 @@ shinyServer(function(input, output, session) {
                                                            tiraje = as.numeric(tiraje))) 
         }
       }
-      
       bd$prueba %<>% filter(analista == input$id) %>% arrange(fecha)
       bd$nnr <- bd$prueba %>% filter(noticiaRelevante == "no") %>% arrange(fecha)
       
@@ -383,7 +384,9 @@ shinyServer(function(input, output, session) {
     fecha$guardar <- now(tzone = "America/Mexico_City")
     valores <- variables %>% map(~input[[.x]]) %>% reduce(c)
     
-    auu <- bd$prueba %>% slice(rv$row) %>% mutate(noticiaRelevante  = "sí", razon = NA, fechaInicio = !!as.character(fecha$inicio), fechaGuardar = !!as.character(fecha$guardar))
+    auu <- bd$prueba %>% slice(rv$row) %>% 
+      mutate(noticiaRelevante  = "sí", razon = NA, fechaInicio = !!as.character(fecha$inicio), 
+             fechaGuardar = !!as.character(fecha$guardar))
     auu[variables] <- valores
     saveData(tabla = entrenamientobd, matriz = auu)
     removeData(tabla = pruebabd, valor = auu$link)
@@ -447,6 +450,16 @@ shinyServer(function(input, output, session) {
                           value = edicion$bd %>% 
                             slice(as.numeric(input$notasCalificadas_rows_selected)) %>% 
                             pull(mencion))
+      
+      updatePickerInput(session = session,inputId = "prioridadesEd",
+                        selected = edicion$bd %>% 
+                          slice(as.numeric(input$notasCalificadas_rows_selected)) %>% 
+                          pull(prioridades))
+      
+      updatePickerInput(session = session,inputId = "origenEd",
+                        selected = edicion$bd %>% 
+                          slice(as.numeric(input$notasCalificadas_rows_selected)) %>% 
+                          pull(origen))
       updatePickerInput(session = session,inputId = "subtemaEd",
                         selected = edicion$bd %>% 
                           slice(as.numeric(input$notasCalificadas_rows_selected)) %>% 

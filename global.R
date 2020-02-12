@@ -20,10 +20,11 @@ library(tm)
 library(e1071)
 library(ranger)
 library(readxl)
+
 # Globales -----------------------------------------------------------------------
 
 variables <- c("calificacion", "postura", "habla", "refiere", "importancia", "mencion", "subtema",
-               "observaciones")
+               "observaciones","prioridades","origen")
 
 appCSS <- ".mandatory_star { color: red; }"
 
@@ -80,7 +81,7 @@ removeData <- function(tabla, valor) {
 
 
 pool <- dbPool(
-  drv = RMySQL::MySQL(),
+  drv = RMariaDB::MariaDB(),
   dbname = "db_gp",
   host = "mysql.c21k45zgpk1y.us-east-2.rds.amazonaws.com",
   username = "root",
@@ -93,10 +94,10 @@ onStop(function() {
 })
 
 # BDs ---------------------------------------------------------------------
-opcionesbd <- "opcionesSepMedia"
-pruebabd <- "pruebaSepMedia"
-entrenamientobd <- "entrenamientoSepMedia"
-usuariosbd <- "usuariosSolutions"
+opcionesbd <- "opcionesII"
+pruebabd <- "pruebaIIp"
+entrenamientobd <- "entrenamientoII"
+usuariosbd <- "usuariosII"
 
 psw <- dbReadTable(pool, usuariosbd)
 sw <- read_csv("stopwords_corta.csv")
