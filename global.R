@@ -95,7 +95,7 @@ onStop(function() {
 
 # BDs ---------------------------------------------------------------------
 opcionesbd <- "opcionesII"
-pruebabd <- "pruebaIIp"
+pruebabd <- "pruebaII"
 entrenamientobd <- "entrenamientoII"
 usuariosbd <- "usuariosII"
 
